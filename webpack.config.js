@@ -1,6 +1,5 @@
 const webpack = require('webpack');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-  .BundleAnalyzerPlugin;
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 // const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
 // const WebpackPwaManifest = require("webpack-pwa-manifest");
 const path = require('path');
@@ -13,13 +12,13 @@ const config = {
     tickets: './assets/js/tickets.js'
   },
   output: {
-    path: __dirname + "/dist",
+    path: path.join(__dirname + "/dist"),
     filename: "[name].bundle.js"
   },
   module: {
     rules: [
       {
-        test: /\.jpg$/,
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
           {
             loader: 'file-loader',
@@ -28,7 +27,7 @@ const config = {
               name(file) {
                 return '[path][name].[ext]';
               },
-              publicPath: function(url) {
+              publicPath(url) {
                 return url.replace('../', '/assets/');
               }
             }
